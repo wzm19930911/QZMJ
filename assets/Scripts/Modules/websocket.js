@@ -13,15 +13,15 @@ var websocket = {
     
     _on_recv_data: function(event) {
         var str_or_buf = event.data;
+        console.log("收到消息:"+str_or_buf);
         if (!this.serivces_handler) {
             return;
         }
-        
         var cmd = proto_man.decode_cmd(this.proto_type, str_or_buf);
         if (!cmd) {
             return;
         }
-        
+
         var stype = cmd[0];
         if (this.serivces_handler[stype]) {
             this.serivces_handler[stype](cmd[0], cmd[1], cmd[2]);
@@ -51,13 +51,10 @@ var websocket = {
     },
        
     send_cmd: function(stype, ctype, body) {
-         console.log("1");
         if (!this.sock || !this.is_connected) {
             return;
         }
-        console.log("2");
         var buf = proto_man.encode_cmd(this.proto_type, stype, ctype, body);
-        console.log(buf);
         this.sock.send(buf);
     },
 

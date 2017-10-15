@@ -12,10 +12,7 @@ var auth = {
        if(!key){
            key  = Utils.randomString(32);
        }
-        var a = {
-            key: key,
-        }
-       Websocket.send_cmd(Stype.Auth,Cmd.Auth.GUEST_LOGIN,a);
+       Websocket.send_cmd(Stype.Auth,Cmd.Auth.GUEST_LOGIN,key);
      }
 
 
